@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import favorito from '/icones/favorito.png';
 import expandir from '/icones/expandir.png';
+import BotaoIcone from '../../BotaoIcone';
 
 const Figure = styled.figure`
   width: ${(props) => (props.$expandida ? '90%' : '460px')};
@@ -37,26 +38,22 @@ const Rodape = styled.footer`
   align-items: center;
 `;
 
-const BotaoIcone = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-`;
-
-const Imagem = ({ foto }) => {
+const Imagem = ({ foto, expandida = false, aoZoomSolicitado }) => {
   return (
-    <Figure>
+    <Figure $expandida={expandida} id={`foto-${foto.id}`}>
       <img src={foto.path} alt={foto.titulo} />
       <figcaption>
         <h3>{foto.titulo}</h3>
         <Rodape>
-          <p>{foto.fonte}</p>
+          <h4>{foto.fonte}</h4>
           <BotaoIcone>
             <img src={favorito} alt="icone de favoritar" />
           </BotaoIcone>
-          <BotaoIcone>
-            <img src={expandir} alt="icone de expandir" />
-          </BotaoIcone>
+          {!expandida && (
+            <BotaoIcone aria-hidden={expandida} onClick={() => aoZoomSolicitado(foto)}>
+              <img src={expandir} alt="icone de expandir" />
+            </BotaoIcone>
+          )}
         </Rodape>
       </figcaption>
     </Figure>
