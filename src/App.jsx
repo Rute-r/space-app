@@ -24,7 +24,7 @@ const AppContainer = styled.div`
 
 const MainContainer = styled.main`
   display: flex;
-  gap: 70px;
+  gap: 24px;
 `;
 
 const ConteudoGaleria = styled.section`
@@ -37,6 +37,17 @@ const App = () => {
   const [fotosDaGaleria, setFotosDaGaleria] = useState(fotos);
   const [fotoSelecionada, setFotoSelecionada] = useState(null);
 
+  const aoAlternarFavorito = (foto) => {
+    setFotosDaGaleria(
+      fotos.map((fotoDaGaleria) => {
+        return {
+          ...fotoDaGaleria,
+          favorita: fotoDaGaleria.id === foto.id ? !foto.favorita : foto.favorita,
+        };
+      })
+    );
+  };
+
   return (
     <FundoGradiente>
       <EstilosGlobais />
@@ -46,12 +57,16 @@ const App = () => {
           <BarraLateral />
           <ConteudoGaleria>
             <Banner backgroundImage={backgroundImage} texto={'A galeria mais completa de fotos do espaço!'} />
-            <Galeria aoFotoSelecionada={(foto) => setFotoSelecionada(foto)} fotos={fotosDaGaleria} />
+            <Galeria
+              aoFotoSelecionada={(foto) => setFotoSelecionada(foto)}
+              aoAlternarFavorito={aoAlternarFavorito}
+              fotos={fotosDaGaleria}
+            />
           </ConteudoGaleria>
         </MainContainer>
       </AppContainer>
 
-      <ModalZoom foto={fotoSelecionada} />
+      <ModalZoom foto={fotoSelecionada} aoFechar={() => setFotoSelecionada(null)} />
     </FundoGradiente>
   );
 };
