@@ -5,8 +5,8 @@ import BarraLateral from './componentes/BarraLateral';
 import Banner from './componentes/Banner';
 import backgroundImage from './assets/banner.png';
 import Galeria from './componentes/Galeria';
+import Rodape from './componentes/Rodape';
 import { useState } from 'react';
-
 import fotos from './fotos.json';
 import ModalZoom from './componentes/ModalZoom';
 
@@ -69,6 +69,7 @@ const App = () => {
           </ConteudoGaleria>
         </MainContainer>
       </AppContainer>
+      <Rodape />
 
       <ModalZoom
         foto={fotoSelecionada}
